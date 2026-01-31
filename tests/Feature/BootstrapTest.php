@@ -41,6 +41,20 @@ test('the cache file includes the deferred providers injected upon bootstrap', f
 test('the cache file includes the regular providers injected upon bootstrap', function() {
 	$file = require rtrim(TestState::$cachePath, '/') . '/app.php';
 
-	expect($file['providers'])->toContain(Providers\StandardServiceProvider::class);
+	$providers = $file['providers'];
+
+	expect($providers)->toContain(Providers\StandardServiceProvider::class);
+
+});
+
+test('the cache file includes the correct aliases for deferred providers', function() {
+	$file = require rtrim(TestState::$cachePath, '/') . '/app.php';
+
+	$aliases = $file['aliases'];
+
+	expect($aliases)
+		->toHaveKey('deferred_provider')
+		->and($aliases['deferred_provider'])
+		->toEqual('deferred_provider');
 
 });
