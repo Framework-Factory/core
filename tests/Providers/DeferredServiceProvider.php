@@ -5,14 +5,14 @@ namespace Tests\Providers {
 	use FrameworkFactory\Contracts;
 	use Tests\Services\DemoService;
 
-	class DemoServiceProvider extends Contracts\Providers\ServiceProvider
+	class DeferredServiceProvider extends Contracts\Providers\ServiceProvider
 	{
 		/**
 		 * @inheritdoc
 		 */
 		public function register(): void
 		{
-			$this->container->singleton('demo', fn() => new DemoService());
+			$this->container->singleton('deferred_provider', fn() => new DemoService());
 		}
 
 		/**
@@ -20,7 +20,7 @@ namespace Tests\Providers {
 		 */
 		public function provides(): array
 		{
-			return ['demo'];
+			return ['deferred_provider'];
 		}
 	}
 }
