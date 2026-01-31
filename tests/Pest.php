@@ -1,8 +1,8 @@
 <?php
 
-use Tests\Providers\DemoServiceProvider;
 use FrameworkFactory\Application;
 use Tests\TestState;
+use Tests\Providers;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +24,8 @@ pest()->beforeAll(function() {
 
 	// assign a default provider
 	TestState::$app->withProviders([
-		DemoServiceProvider::class,
+		Providers\DeferredServiceProvider::class, // deferred
+		Providers\StandardServiceProvider::class, // standard
 	]);
 
 	TestState::$app->fire();

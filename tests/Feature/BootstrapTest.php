@@ -1,8 +1,8 @@
 <?php
 
 use FrameworkFactory\Contracts\Application\ApplicationInstance;
-use Tests\Providers\DemoServiceProvider;
 use FrameworkFactory\Application;
+use Tests\Providers;
 use Tests\TestState;
 
 test('the application bootstrap build process completes properly', function() {
@@ -15,7 +15,7 @@ test('the version number can be assigned to the application', function () {
 });
 
 test('providers can be successfully added to the container', function() {
-	expect(Application::providers())->toContain(DemoServiceProvider::class);
+	expect(Application::providers())->toContain(Providers\DeferredServiceProvider::class);
 });
 
 test('the cache directory is successfully created', function() {
@@ -26,14 +26,21 @@ test('the cache file is successfully created and exists', function() {
 	expect(file_exists(rtrim(TestState::$cachePath, '/') . '/app.php'))->toBeTrue();
 });
 
-test('the cache file includes the providers injected upon bootstrap', function() {
+test('the cache file includes the deferred providers injected upon bootstrap', function() {
 	$file = require rtrim(TestState::$cachePath, '/') . '/app.php';
 
 	$deferred = $file['deferred'];
 
 	expect($deferred)
-		->toHaveKey('demo')
-		->and($deferred['demo'])
-		->toContain(DemoServiceProvider::class);
+		->toHaveKey('deferred_provider')
+		->and($deferred['deferred_provider'])
+		->toContain(Providers\DeferredServiceProvider::class);
+
+});
+
+test('the cache file includes the regular providers injected upon bootstrap', function() {
+	$file = require rtrim(TestState::$cachePath, '/') . '/app.php';
+
+	expect($file['providers'])->toContain(Providers\StandardServiceProvider::class);
 
 });
