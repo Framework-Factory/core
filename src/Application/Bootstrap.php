@@ -35,6 +35,7 @@ namespace FrameworkFactory\Application {
                     }
                 } else {
                     $eager[] = $provider;
+					break;
                 }
             }
 
@@ -44,7 +45,7 @@ namespace FrameworkFactory\Application {
                 'aliases'   => $aliases,
             ];
 
-            if (!is_dir($cachePath) && !mkdir($cachePath, 0775, true) && !is_dir($cachePath)) {
+            if (!mkdir($cachePath, 0775, true) && !is_dir($cachePath)) {
                 throw new DirectoryNotCreated(sprintf('Directory "%s" was not created', $cachePath));
             }
 
