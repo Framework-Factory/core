@@ -7,6 +7,10 @@ namespace FrameworkFactory\Application {
     use FrameworkFactory\Contracts\Container\ContextBuilder;
     use FrameworkFactory\Application\Context\Builder;
 
+	/**
+	 * The container is built to house all dependencies that an
+	 * application is going to use.
+	 */
     class Container implements ContainerInstance
     {
         /** @var array $bindings container bindings */
@@ -98,9 +102,7 @@ namespace FrameworkFactory\Application {
                 if (isset($this->contextual[$parent][$id])) {
                     $concrete = $this->contextual[$parent][$id];
 
-                    return is_callable($concrete)
-                        ? $concrete($this)
-                        : new $concrete();
+                    return is_callable($concrete) ? $concrete($this) : new $concrete();
                 }
             }
 
@@ -193,6 +195,13 @@ namespace FrameworkFactory\Application {
             new $provider($this)->register();
         }
 
+	    /**
+	     * Loads a deferred service provider
+	     *
+	     * @param string $service
+	     *
+	     * @return void
+	     */
         protected function loadDeferredProvider(string $service): void
         {
             if (! isset($this->deferred[$service])) {
@@ -200,7 +209,6 @@ namespace FrameworkFactory\Application {
             }
 
             $provider = $this->deferred[$service];
-
             unset($this->deferred[$service]);
 
             $this->registerProvider($provider);
@@ -218,7 +226,7 @@ namespace FrameworkFactory\Application {
             }
 
             foreach ($this->providers as $provider) {
-                new $provider($this)->boot();
+	            new $provider($this)->boot();
             }
 
             $this->booted = true;
