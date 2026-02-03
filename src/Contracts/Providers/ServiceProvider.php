@@ -4,9 +4,9 @@ namespace FrameworkFactory\Contracts\Providers {
 
     use FrameworkFactory\Contracts\Container\ContainerInstance;
 
-	/**
-	 * This class is to be extended by all service providers
-	 */
+    /**
+     * This class is to be extended by all service providers
+     */
     abstract class ServiceProvider
     {
         /**
@@ -14,7 +14,9 @@ namespace FrameworkFactory\Contracts\Providers {
          *
          * @param ContainerInstance $container container instance
          */
-        public function __construct(protected ContainerInstance $container) {}
+        public function __construct(protected ContainerInstance $container)
+        {
+        }
 
         /**
          * Registers new container bindings

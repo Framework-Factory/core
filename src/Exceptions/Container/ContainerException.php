@@ -4,9 +4,9 @@ namespace FrameworkFactory\Exceptions\Container {
 
     use Psr\Container\ContainerExceptionInterface;
 
-	/**
-	 * @inheritdoc
-	 */
+    /**
+     * @inheritdoc
+     */
     class ContainerException extends \RuntimeException implements ContainerExceptionInterface
     {
         // ...

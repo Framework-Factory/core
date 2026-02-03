@@ -2,9 +2,9 @@
 
 namespace FrameworkFactory\Exceptions\Container {
 
-	/**
-	 * @inheritdoc
-	 */
+    /**
+     * @inheritdoc
+     */
     class EmptyProvidersValue extends ContainerException
     {
         // ...

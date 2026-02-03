@@ -15,20 +15,20 @@ use Tests\Providers;
 |
 */
 
-pest()->beforeAll(function() {
-	// cache path
-	TestState::$cachePath = __DIR__ . '/Cache';
+pest()->beforeAll(function () {
+    // cache path
+    TestState::$cachePath = __DIR__ . '/Cache';
 
-	// application instance
-	TestState::$app = Application::build(TestState::$cachePath);
+    // application instance
+    TestState::$app = Application::build(TestState::$cachePath);
 
-	// assign a default provider
-	TestState::$app->withProviders([
-		Providers\DeferredServiceProvider::class, // deferred
-		Providers\StandardServiceProvider::class, // standard
-	]);
+    // assign a default provider
+    TestState::$app->withProviders([
+        Providers\DeferredServiceProvider::class, // deferred
+        Providers\StandardServiceProvider::class, // standard
+    ]);
 
-	TestState::$app->fire();
+    TestState::$app->fire();
 });
 
 pest()->extend(Tests\TestCase::class)->in('Feature');

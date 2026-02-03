@@ -17,9 +17,6 @@ namespace FrameworkFactory\Application\Bootstrap {
         /** @var int $maxDepth max depth */
         private int $maxDepth = 10;
 
-        /** @var bool $shortArrays use short arrays? */
-        private bool $shortArrays = true;
-
         /** @var bool $stripNumericKeys strip numeric keys? */
         private bool $stripNumericKeys = false;
 
@@ -147,16 +144,12 @@ namespace FrameworkFactory\Application\Bootstrap {
                     continue;
                 }
 
-                $k = is_int($key)
-                    ? $key
-                    : "'" . addslashes((string)$key) . "'";
+                $k = is_int($key) ? $key : "'" . addslashes($key) . "'";
 
                 $lines[] = "{$inner}{$k} => {$v},";
             }
 
-            return "[\n"
-                . implode("\n", $lines)
-                . "\n{$space}]";
+            return "[\n" . implode("\n", $lines) . "\n{$space}]";
         }
 
         /**
@@ -186,9 +179,7 @@ namespace FrameworkFactory\Application\Bootstrap {
                 $lines[] = "{$inner}'{$key}' => {$v},";
             }
 
-            return "new {$class}([\n"
-                . implode("\n", $lines)
-                . "\n{$space}])";
+            return "new {$class}([\n" . implode("\n", $lines) . "\n{$space}])";
         }
 
         /**
