@@ -64,21 +64,19 @@ namespace FrameworkFactory\Application {
 	     * Creates a new cache directory if none exists, ignores the
 	     * directory creation if one does
 	     *
-	     * @param string $path
-	     * @param int    $permissions
-	     * @param bool   $recursive
+	     * @param string $path the path of the directory to create
 	     *
 	     * @return void
 	     */
-	    protected static function createCacheDirectory(string $path, int $permissions = 0775, bool $recursive = true): void
+	    protected static function createCacheDirectory(string $path): void
 	    {
-		    // If it's already a directory, do nothing
+		    // if it's already a directory, do nothing
 		    if (is_dir($path)) {
 			    return;
 		    }
 
-		    // Otherwise, attempt to create it
-		    if (!mkdir($path, $permissions, $recursive) && !is_dir($path)) {
+		    // otherwise, attempt to create it
+		    if (!mkdir($path, 0775, true) && !is_dir($path)) {
 			    throw new DirectoryNotCreated(sprintf('Directory "%s" was not created', $path));
 		    }
 	    }
