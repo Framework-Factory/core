@@ -25,10 +25,13 @@ namespace FrameworkFactory\Application {
          */
         public static function build(ContainerInstance $container, array $providers, string $cachePath): void
         {
+			// empty data arrays
             $eager = [];
             $deferred = [];
             $aliases = [];
 
+			// run through the providers for their data to
+	        // add to the cache file
             foreach ($providers as $provider) {
                 $instance = new $provider($container);
                 $services = $instance->provides();
@@ -40,33 +43,54 @@ namespace FrameworkFactory\Application {
                     }
                 } else {
                     $eager[] = $provider;
-                    break;
                 }
             }
 
+			// the data for the cache file
             $cache = [
                 'providers' => $eager,
                 'deferred'  => $deferred,
                 'aliases'   => $aliases,
             ];
 
-            if (!mkdir($cachePath, 0775, true) && !is_dir($cachePath)) {
-                throw new DirectoryNotCreated(sprintf('Directory "%s" was not created', $cachePath));
-            }
+			// create the cache directory
+	        self::createCacheDirectory($cachePath);
 
+			// update the cache file
             file_put_contents(rtrim($cachePath, '/') . '/app.php', self::export($cache));
         }
 
-        /**
-         * Exports the contents of the cache file
-         *
-         * @param array $data
-         *
-         * @return string
-         */
-        protected static function export(array $data): string
-        {
-            return "<?php\n\nreturn " . Formatter::make()->indentWithTabs()->export($data) . ";\n";
-        }
+	    /**
+	     * Creates a new cache directory if none exists, ignores the
+	     * directory creation if one does
+	     *
+	     * @param string $path the path of the directory to create
+	     *
+	     * @return void
+	     */
+	    protected static function createCacheDirectory(string $path): void
+	    {
+		    // if it's already a directory, do nothing
+		    if (is_dir($path)) {
+			    return;
+		    }
+
+		    // otherwise, attempt to create it
+		    if (!mkdir($path, 0775, true) && !is_dir($path)) {
+			    throw new DirectoryNotCreated(sprintf('Directory "%s" was not created', $path));
+		    }
+	    }
+
+	    /**
+	     * Exports the contents of the cache file
+	     *
+	     * @param array $data
+	     *
+	     * @return string
+	     */
+	    protected static function export(array $data): string
+	    {
+		    return "<?php\n\nreturn " . Formatter::make()->indentWithTabs()->export($data) . ";\n";
+	    }
     }
 }
