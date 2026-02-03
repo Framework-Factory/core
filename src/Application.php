@@ -6,20 +6,20 @@ namespace FrameworkFactory {
     use FrameworkFactory\Contracts\Container\ContainerInstance;
     use FrameworkFactory\Application as App;
 
-	/**
-	 * This is the application entry point used to build and
-	 * bootstrap an application. It sets up the container and
-	 * configures the core libraries.
-	 *
-	 * USAGE:
-	 * ```
-	 * $app = Application::build(...);
-	 *
-	 * // app configuration ...
-	 *
-	 * $app->fire()
-	 * ```
-	 */
+    /**
+     * This is the application entry point used to build and
+     * bootstrap an application. It sets up the container and
+     * configures the core libraries.
+     *
+     * USAGE:
+     * ```
+     * $app = Application::build(...);
+     *
+     * // app configuration ...
+     *
+     * $app->fire()
+     * ```
+     */
     final class Application implements ApplicationInstance
     {
         /** @var ContainerInstance $container service container */
@@ -31,8 +31,8 @@ namespace FrameworkFactory {
         /** @var array $providers base service providers */
         private static array $providers = [];
 
-		/** @var string $cachePath the path for the cached bootstrap file */
-		protected static string $cachePath;
+        /** @var string $cachePath the path for the cached bootstrap file */
+        protected static string $cachePath;
 
         /**
          * @inheritdoc
@@ -42,11 +42,11 @@ namespace FrameworkFactory {
             // build a new container instance
             self::$container = new App\Container($cachePath);
 
-			// assign the cache path
-			self::$cachePath = $cachePath;
+            // assign the cache path
+            self::$cachePath = $cachePath;
 
-	        // configure the facade / accessor system
-	        App\Accessor::setContainer(self::$container);
+            // configure the facade / accessor system
+            App\Accessor::setContainer(self::$container);
 
             // assign and return the application instance
             return new self();
@@ -61,18 +61,18 @@ namespace FrameworkFactory {
                 throw new Exceptions\Container\EmptyProvidersValue('The providers array cannot be empty');
             }
 
-			// assign the providers
+            // assign the providers
             self::$providers = [...self::$providers, ...$providers];
         }
 
-	    /**
-	     * @inheritdoc
-	     */
-	    public function asVersion(string $version): void
-	    {
-			// assign the version
-		    self::$version = $version;
-	    }
+        /**
+         * @inheritdoc
+         */
+        public function asVersion(string $version): void
+        {
+            // assign the version
+            self::$version = $version;
+        }
 
         /**
          * @inheritdoc

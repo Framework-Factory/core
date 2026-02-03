@@ -7,10 +7,10 @@ namespace FrameworkFactory\Application {
     use FrameworkFactory\Contracts\Container\ContextBuilder;
     use FrameworkFactory\Application\Context\Builder;
 
-	/**
-	 * The container is built to house all dependencies that an
-	 * application is going to use.
-	 */
+    /**
+     * The container is built to house all dependencies that an
+     * application is going to use.
+     */
     class Container implements ContainerInstance
     {
         /** @var array $bindings container bindings */
@@ -52,9 +52,9 @@ namespace FrameworkFactory\Application {
         /**
          * Builds the container instance
          *
-         * @param string|null $cachePath Path to the cache directory
+         * @param string $cachePath Path to the cache directory
          */
-        public function __construct(?string $cachePath = null)
+        public function __construct(string $cachePath)
         {
             $this->cacheFile = rtrim($cachePath, '/') . '/app.php';
         }
@@ -93,13 +93,13 @@ namespace FrameworkFactory\Application {
             $this->contextual[$concrete][$abstract] = $implementation;
         }
 
-	    /**
-	     * Dependency context resolution
-	     *
-	     * @param string $id
-	     *
-	     * @return mixed
-	     */
+        /**
+         * Dependency context resolution
+         *
+         * @param string $id
+         *
+         * @return mixed
+         */
         protected function resolveWithContext(string $id): mixed
         {
             // If resolving as a dependency of something else
@@ -202,13 +202,13 @@ namespace FrameworkFactory\Application {
             new $provider($this)->register();
         }
 
-	    /**
-	     * Loads a deferred service provider
-	     *
-	     * @param string $service
-	     *
-	     * @return void
-	     */
+        /**
+         * Loads a deferred service provider
+         *
+         * @param string $service
+         *
+         * @return void
+         */
         protected function loadDeferredProvider(string $service): void
         {
             if (! isset($this->deferred[$service])) {
@@ -233,7 +233,7 @@ namespace FrameworkFactory\Application {
             }
 
             foreach ($this->providers as $provider) {
-	            new $provider($this)->boot();
+                new $provider($this)->boot();
             }
 
             $this->booted = true;

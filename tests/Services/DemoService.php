@@ -2,11 +2,11 @@
 
 namespace Tests\Services {
 
-	class DemoService
-	{
-		public function message(string $message): string
-		{
-			return $message;
-		}
-	}
+    class DemoService
+    {
+        public function message(string $message): string
+        {
+            return $message;
+        }
+    }
 }

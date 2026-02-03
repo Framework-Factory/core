@@ -2,11 +2,11 @@
 
 namespace FrameworkFactory\Exceptions\FileSystem {
 
-	/**
-	 * @inheritdoc
-	 */
+    /**
+     * @inheritdoc
+     */
     class DirectoryNotCreated extends \RuntimeException
     {
-		// ...
+        // ...
     }
 }

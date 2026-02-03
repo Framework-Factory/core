@@ -2,17 +2,17 @@
 
 namespace Tests\Providers {
 
-	use FrameworkFactory\Contracts;
-	use Tests\Services\DemoService;
+    use FrameworkFactory\Contracts;
+    use Tests\Services\DemoService;
 
-	class StandardServiceProvider extends Contracts\Providers\ServiceProvider
-	{
-		/**
-		 * @inheritdoc
-		 */
-		public function register(): void
-		{
-			$this->container->bind('standard_provider', fn() => new DemoService());
-		}
-	}
+    class StandardServiceProvider extends Contracts\Providers\ServiceProvider
+    {
+        /**
+         * @inheritdoc
+         */
+        public function register(): void
+        {
+            $this->container->bind('standard_provider', fn () => new DemoService());
+        }
+    }
 }

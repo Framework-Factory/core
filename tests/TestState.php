@@ -2,12 +2,12 @@
 
 namespace Tests {
 
-	use FrameworkFactory\Contracts\Application\ApplicationInstance;
+    use FrameworkFactory\Contracts\Application\ApplicationInstance;
 
-	final class TestState
-	{
-		public static ApplicationInstance $app;
+    final class TestState
+    {
+        public static ApplicationInstance $app;
 
-		public static string $cachePath;
-	}
+        public static string $cachePath;
+    }
 }
