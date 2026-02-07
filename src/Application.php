@@ -2,8 +2,6 @@
 
 namespace FrameworkFactory {
 
-    use FrameworkFactory\Contracts\Application\ApplicationInstance;
-    use FrameworkFactory\Contracts\Container\ContainerInstance;
     use FrameworkFactory\Application as App;
 
     /**
@@ -20,13 +18,13 @@ namespace FrameworkFactory {
      * $app->fire()
      * ```
      */
-    final class Application implements ApplicationInstance
+    final class Application implements Contracts\Application\ApplicationInstance
     {
-        /** @var ContainerInstance $container service container */
-        protected static ContainerInstance $container;
+        /** @var Contracts\Container\ContainerInstance $container service container */
+        protected static Contracts\Container\ContainerInstance $container;
 
-        /** @var string $version current application version */
-        private static string $version = '1.0.0';
+        /** @var string|null $version current application version */
+        private static ?string $version = null;
 
         /** @var array $providers base service providers */
         private static array $providers = [];
@@ -39,8 +37,8 @@ namespace FrameworkFactory {
          */
         public static function build(?string $cachePath = null): self
         {
-	        // assign the cache path
-	        self::$cachePath = $cachePath ?? getcwd() . '/cache/';
+            // assign the cache path
+            self::$cachePath = $cachePath ?? getcwd() . '/cache/';
 
             // build a new container instance
             self::$container = new App\Container(self::$cachePath);
@@ -98,7 +96,7 @@ namespace FrameworkFactory {
         /**
          * @inheritdoc
          */
-        public static function container(): ContainerInstance
+        public static function container(): Contracts\Container\ContainerInstance
         {
             return self::$container;
         }
