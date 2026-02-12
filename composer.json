@@ -1,6 +1,7 @@
 {
   "name": "framework-factory/core",
   "minimum-stability": "stable",
+  "license": "MIT",
   "version": "1.2.0",
   "require": {
     "psr/container": "^2.0.2",
