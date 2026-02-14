@@ -35,8 +35,10 @@ namespace FrameworkFactory {
         /** @var string $cachePath the path for the cached bootstrap file */
         protected static string $cachePath;
 
+		/** @var string $appNamespace the application namespace */
 		protected static string $appNamespace;
 
+	    /** @var string $appNamespace the application directory */
 		protected static string $appDirectory;
 
         /**
