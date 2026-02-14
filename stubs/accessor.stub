@@ -1,0 +1,13 @@
+<?php
+
+namespace {{ namespace }};
+
+use FrameworkFactory\Application\Accessor;
+
+class {{ class }} extends Accessor
+{
+    /**
+     * @inheritdoc
+     */
+     protected static string $key = '';
+}
